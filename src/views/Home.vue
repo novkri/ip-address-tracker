@@ -2,10 +2,10 @@
   <div>
     <div class="home">
       <header class="home_header">IP Address Tracker</header>
-      <SearchInput />
+      <SearchInput @onSearch="onSearch" />
     </div>
 
-    <MyMap />
+    <MyMap :geoInfo="geoInfo" />
   </div>
 </template>
 
@@ -19,7 +19,24 @@ export default {
     MyMap,
     SearchInput,
   },
-
+  data() {
+    return {
+      geoInfo: null,
+      // isGeoFetched: false
+    }
+  },
+  methods: {
+    async onSearch(e) {
+      // this.isGeoFetched = false
+      await fetch(`http://ip-api.com/json/${e}`)
+          .then(async res => await res.json())
+          .then(data => {
+            // this.isGeoFetched = true
+            console.log(data)
+            this.geoInfo = data
+          })
+    }
+  }
 };
 </script>
 
@@ -36,9 +53,9 @@ export default {
 
 .home_header {
   color: #fff;
-  font-size: 26px;
+  font-size: 30px;
   font-weight: bold;
-  padding-top: 30px;
+  padding-top: 25px;
   padding-bottom: 25px;
 }
 </style>

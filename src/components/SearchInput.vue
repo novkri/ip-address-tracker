@@ -22,7 +22,7 @@ export default {
 
   methods: {
     handleSearch() {
-      console.log(this.whatToSearch)
+      this.$emit('onSearch', this.whatToSearch)
     }
   }
 }

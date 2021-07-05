@@ -1,17 +1,8 @@
 <template>
-  <div style="height: 500px; width: 100%">
-<!--    <div style="height: 200px; overflow: auto;">-->
-<!--      <p>First marker is placed at {{ withPopup.lat }}, {{ withPopup.lng }}</p>-->
-<!--      <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>-->
-<!--      <button @click="showLongText">-->
-<!--        Toggle long popup-->
-<!--      </button>-->
-<!--      <button @click="showMap = !showMap">-->
-<!--        Toggle map-->
-<!--      </button>-->
-<!--    </div>-->
-    <l-map
-        v-if="showMap"
+  <div style="position: relative; height: 500px; width: 100%;">
+      <MapInfoCard :geoInfo="geoInfo" />
+
+      <l-map
         :zoom="zoom"
         :center="center"
         :options="mapOptions"
@@ -23,29 +14,13 @@
           :url="url"
           :attribution="attribution"
       />
-      <l-marker :lat-lng="withPopup">
-        <l-popup>
-          <div @click="innerClick">
-            I am a popup
-            <p v-show="showParagraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
-              Donec finibus semper metus id malesuada.
-            </p>
-          </div>
-        </l-popup>
-      </l-marker>
-      <l-marker :lat-lng="withTooltip">
-        <l-tooltip :options="{ permanent: true, interactive: true }">
-          <div @click="innerClick">
-            I am a tooltip
-            <p v-show="showParagraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
-              Donec finibus semper metus id malesuada.
-            </p>
-          </div>
-        </l-tooltip>
+      <l-marker :lat-lng="withPopup"  @click="innerClick">
+        <l-icon
+            class-name="someExtraClass"
+        >
+          <img alt="here" src="@/assets/images/icon-location.svg">
+        </l-icon>
+
       </l-marker>
     </l-map>
   </div>
@@ -53,34 +28,47 @@
 
 <script>
 import { latLng } from "leaflet";
-import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "vue2-leaflet";
+import { LMap, LTileLayer, LMarker, LIcon } from "vue2-leaflet";
+import MapInfoCard from "@/components/MapInfoCard";
 
 export default {
   name: 'my-map',
+  props: {
+    geoInfo: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   components: {
+    MapInfoCard,
     LMap,
     LTileLayer,
     LMarker,
-    LPopup,
-    LTooltip
+    LIcon
   },
   data() {
     return {
       zoom: 13,
-      center: latLng(47.41322, -1.219482),
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
           '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(47.41322, -1.219482),
-      withTooltip: latLng(47.41422, -1.250482),
       currentZoom: 11.5,
-      currentCenter: latLng(47.41322, -1.219482),
-      showParagraph: false,
+      showInfo: false,
       mapOptions: {
         zoomSnap: 0.5
       },
-      showMap: true
     };
+  },
+  computed: {
+    center() {
+      return this.geoInfo ? latLng(this.geoInfo.lat, this.geoInfo.lon) : latLng(47.41322, -1.219482)
+    },
+    withPopup() {
+      return this.geoInfo ? latLng(this.geoInfo.lat, this.geoInfo.lon) : latLng(47.41322, -1.219482)
+    },
+    currentCenter() {
+      return this.geoInfo ? latLng(this.geoInfo.lat, this.geoInfo.lon) : latLng(47.41322, -1.219482)
+    },
   },
   methods: {
     zoomUpdate(zoom) {
@@ -89,16 +77,13 @@ export default {
     centerUpdate(center) {
       this.currentCenter = center;
     },
-    showLongText() {
-      this.showParagraph = !this.showParagraph;
-    },
     innerClick() {
-      alert("Click!");
+      // alert("Click!");
+      this.showInfo = !this.showInfo
     }
   }
 }
 </script>
 
 <style>
-
 </style>
