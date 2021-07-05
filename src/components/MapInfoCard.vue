@@ -5,17 +5,20 @@
         <header>IP Address</header>
         <p>{{geoInfo.query}}</p>
       </div>
-      <hr class="uk-divider-vertical">
+      <hr class="uk-divider-vertical uk-visible@m">
+      <hr class="uk-divider-icon uk-visible uk-hidden@m">
       <div class="info_item">
         <header>Location</header>
         <p>{{geoInfo.country}}, {{geoInfo.city}}, {{geoInfo.zip}}</p>
       </div>
-      <hr class="uk-divider-vertical">
+      <hr class="uk-divider-vertical uk-visible@m">
+      <hr class="uk-divider-icon uk-visible uk-hidden@m">
       <div class="info_item">
         <header>Timezone</header>
         <p>{{geoInfo.timezone}}</p>
       </div>
-      <hr class="uk-divider-vertical">
+      <hr class="uk-divider-vertical uk-visible@m">
+      <hr class="uk-divider-icon uk-visible uk-hidden@m">
       <div class="info_item">
         <header>ISP</header>
         <p>{{geoInfo.isp}}</p>
@@ -36,13 +39,19 @@
   }
 </script>
 
-<style>
+<style scoped>
 .info {
   height: 200px;
   position: absolute;
   z-index: 1000;
   top: -50px;
   width: 100%;
+  font-size: 10px;
+}
+@media (min-width: 800px) {
+  .info {
+    font-size: 16px;
+  }
 }
 
 .uk-card {
@@ -54,7 +63,13 @@
 
 .info_card {
   display: grid;
-  grid-template-columns: 5fr 1fr 5fr 1fr 5fr 1fr 5fr;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 800px) {
+  .info_card {
+    grid-template-columns: 5fr 1fr 5fr 1fr 5fr 1fr 5fr;
+  }
 }
 
 .info_item {
@@ -68,12 +83,16 @@
   margin-bottom: 10px;
 }
 
+.uk-divider-icon {
+  margin: 5px 0 10px 0;
+}
+
 .info_item header {
   font-weight: bold;
   color: #848484;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-size: 14px;
+  font-size: 1em;
 }
 
 .info_item p {

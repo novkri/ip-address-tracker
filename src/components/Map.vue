@@ -1,12 +1,11 @@
 <template>
-  <div style="position: relative; height: 500px; width: 100%;">
+  <div class="uk-position-relative uk-width-1-1 map-wrapper" >
       <MapInfoCard :geoInfo="geoInfo" />
 
       <l-map
         :zoom="zoom"
         :center="center"
         :options="mapOptions"
-        style="height: 80%"
         @update:center="centerUpdate"
         @update:zoom="zoomUpdate"
     >
@@ -86,4 +85,13 @@ export default {
 </script>
 
 <style>
+.map-wrapper {
+  height: 100vh;
+}
+
+@media (min-width: 800px) {
+  .map-wrapper {
+    height: 500px;
+  }
+}
 </style>
