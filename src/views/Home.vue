@@ -1,17 +1,22 @@
 <template>
-  <div class="home">
-    <header class="home_header">IP Address Tracker</header>
-    <SearchInput />
-    <
+  <div>
+    <div class="home">
+      <header class="home_header">IP Address Tracker</header>
+      <SearchInput />
+    </div>
+
+    <MyMap />
   </div>
 </template>
 
 <script>
 
 import SearchInput from "@/components/SearchInput";
+import MyMap from "@/components/Map";
 export default {
   name: "Home",
   components: {
+    MyMap,
     SearchInput,
   },
 
@@ -25,6 +30,8 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 250px;
+  text-align: center;
+  height: 250px;
 }
 
 .home_header {
