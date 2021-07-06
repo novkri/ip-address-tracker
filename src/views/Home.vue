@@ -37,7 +37,7 @@ export default {
       await fetch(`http://ip-api.com/json/${e}`)
           .then(async res => await res.json())
           .then(data => {
-            console.log(data)
+            // console.log(data)
             if (data.status === 'success') {
               this.historyText = e
               this.geoInfo = data
