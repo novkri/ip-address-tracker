@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="handleSearch" class="search">
     <div class="uk-inline uk-width-1-1 uk-width-1-2@m search-wrapper">
-      <!--      doesnt search for domains! -->
+      <!-- this free API doesn't search for domains! -->
       <input type="text" v-model="whatToSearch" class="uk-input search-input" :placeholder="whatToSearch.length === 0 ? `Search for any IP address` : historyText" />
       <span class="append-icon" @click="handleSearch">
         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14"><path fill="none" stroke="#FFF" stroke-width="3" d="M2 1l6 6-6 6"/></svg>

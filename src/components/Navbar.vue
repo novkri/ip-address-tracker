@@ -1,9 +1,7 @@
 <template>
   <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
-    <div class="uk-navbar-center">
-      <header class="home_header">IP Address Tracker</header>
-    </div>
-    <div class="uk-navbar-right">
+    <header class="home_header">IP Address Tracker</header>
+    <div class="history-btn">
       <p uk-margin>
         <button class="uk-button uk-button-default">
           <a href="" class="uk-icon-button" uk-icon="history"></a>
@@ -13,10 +11,10 @@
       <div class="dropdown" uk-dropdown="mode: click">
         <p v-if="history.length === 0">History is empty...</p>
         <div v-else class="uk-list">
+          <li><span>Search History:</span></li>
           <li @click="onItemClick(item)" class="history-item" v-for="item in history" :key="item">{{item}}</li>
         </div>
       </div>
-
     </div>
   </nav>
 </template>
@@ -37,18 +35,37 @@ export default {
 
 <style scoped>
 nav {
-  padding: 25px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: end;
+  position: relative;
+  padding: 45px 30px;
 }
+
+.history-btn {
+  position: absolute;
+  right: 0;
+}
+
 .home_header {
   color: #fff;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
 }
 
+@media (min-width: 800px) {
+  nav {
+    padding: 25px 30px;
+    justify-content: center;
+  }
+  .home_header {
+    font-size: 30px;
+  }
+}
+
 button {
-  padding-bottom: 0;
   border: none;
-  margin-right: 10px;
+  padding: 0 20px;
 }
 
 .dropdown {
@@ -56,6 +73,14 @@ button {
   min-width: 250px;
   padding-left: 0;
   padding-right: 0;
+
+  right: 0;
+}
+
+@media (min-width: 800px) {
+  .dropdown {
+    right: auto;
+  }
 }
 
 .history-item {

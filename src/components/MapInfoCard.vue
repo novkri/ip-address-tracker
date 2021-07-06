@@ -1,30 +1,32 @@
 <template>
-  <div class="info" v-if="geoInfo">
-    <div class="uk-card uk-card-default uk-card-body info_card">
-      <div class="info_item">
-        <header>IP Address</header>
-        <p>{{geoInfo.query}}</p>
-      </div>
-      <hr class="uk-divider-vertical uk-visible@m">
-      <hr class="uk-divider-icon uk-visible uk-hidden@m">
-      <div class="info_item">
-        <header>Location</header>
-        <p>{{geoInfo.country}}, {{geoInfo.city}}, {{geoInfo.zip}}</p>
-      </div>
-      <hr class="uk-divider-vertical uk-visible@m">
-      <hr class="uk-divider-icon uk-visible uk-hidden@m">
-      <div class="info_item">
-        <header>Timezone</header>
-        <p>{{geoInfo.timezone}}</p>
-      </div>
-      <hr class="uk-divider-vertical uk-visible@m">
-      <hr class="uk-divider-icon uk-visible uk-hidden@m">
-      <div class="info_item">
-        <header>ISP</header>
-        <p>{{geoInfo.isp}}</p>
+  <transition name="fade">
+    <div class="info" v-if="geoInfo">
+      <div class="uk-card uk-card-default uk-card-body info_card">
+        <div class="info_item">
+          <header>IP Address</header>
+          <p>{{geoInfo.query}}</p>
+        </div>
+        <hr class="uk-divider-vertical uk-visible@m">
+        <hr class="uk-divider-icon uk-visible uk-hidden@m">
+        <div class="info_item">
+          <header>Location</header>
+          <p>{{geoInfo.country}}, {{geoInfo.city}}, {{geoInfo.zip}}</p>
+        </div>
+        <hr class="uk-divider-vertical uk-visible@m">
+        <hr class="uk-divider-icon uk-visible uk-hidden@m">
+        <div class="info_item">
+          <header>Timezone</header>
+          <p>{{geoInfo.timezone}}</p>
+        </div>
+        <hr class="uk-divider-vertical uk-visible@m">
+        <hr class="uk-divider-icon uk-visible uk-hidden@m">
+        <div class="info_item">
+          <header>ISP</header>
+          <p>{{geoInfo.isp}}</p>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -100,5 +102,16 @@
   margin: 5px 0;
   color: #1f1f1f;
   font-weight: bold;
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0
 }
 </style>
