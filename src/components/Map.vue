@@ -65,8 +65,14 @@ export default {
     withPopup() {
       return this.geoInfo ? latLng(this.geoInfo.lat, this.geoInfo.lon) : latLng(47.41322, -1.219482)
     },
-    currentCenter() {
-      return this.geoInfo ? latLng(this.geoInfo.lat, this.geoInfo.lon) : latLng(47.41322, -1.219482)
+    currentCenter: {
+      get() {
+        return this.geoInfo ? latLng(this.geoInfo.lat, this.geoInfo.lon) : latLng(47.41322, -1.219482)
+      },
+      set(newValue) {
+        return newValue
+      }
+
     },
   },
   methods: {

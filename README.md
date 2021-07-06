@@ -1,5 +1,8 @@
 # ip-tracker
 
+Used: 
+Uikit, https://ip-api.com/ for free API
+
 ## Project setup
 ```
 npm install

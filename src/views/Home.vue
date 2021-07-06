@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="home">
-      <header class="home_header">IP Address Tracker</header>
-      <SearchInput @onSearch="onSearch" />
+      <Navbar :history="history" @onSearch="onSearch" />
+
+      <SearchInput @onSearch="onSearch" :historyText="historyText" />
     </div>
 
     <MyMap :geoInfo="geoInfo" />
@@ -13,29 +14,44 @@
 
 import SearchInput from "@/components/SearchInput";
 import MyMap from "@/components/Map";
+import { mapActions, mapGetters } from 'vuex'
+import Navbar from "@/components/Navbar";
+
 export default {
   name: "Home",
   components: {
+    Navbar,
     MyMap,
     SearchInput,
   },
   data() {
     return {
       geoInfo: null,
-      // isGeoFetched: false
+      historyText: ''
     }
   },
   methods: {
+    ...mapActions(['setHistoryItem']),
+
     async onSearch(e) {
-      // this.isGeoFetched = false
       await fetch(`http://ip-api.com/json/${e}`)
           .then(async res => await res.json())
           .then(data => {
-            // this.isGeoFetched = true
             console.log(data)
-            this.geoInfo = data
+            if (data.status === 'success') {
+              this.historyText = e
+              this.geoInfo = data
+              this.setHistoryItem(e)
+            }
+          })
+          .catch(e => {
+            console.log(e)
           })
     }
+  },
+
+  computed: {
+    ...mapGetters(['history'])
   }
 };
 </script>
@@ -51,11 +67,4 @@ export default {
   height: 250px;
 }
 
-.home_header {
-  color: #fff;
-  font-size: 30px;
-  font-weight: bold;
-  padding-top: 25px;
-  padding-bottom: 25px;
-}
 </style>
